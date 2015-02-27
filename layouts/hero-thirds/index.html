@@ -197,8 +197,25 @@ Keen.ready(function(){
     }
   });
   // ----------------------------------------
-  //  End sample one
+  //  End chart-01
   // ----------------------------------------
+
+  // ----------------------------------------
+  // Chart-02
+  // ----------------------------------------
+  var query = new Keen.Query("count_unique", {
+    eventCollection: "button_fb_access",
+    targetProperty: "userId"
+  });
+  client.draw(query, document.getElementById("chart-02"), {
+    chartType: "metric",
+    title: "Accounts created", 
+    colors: ["#49c5b1"]
+  });
+  // ----------------------------------------
+  //  End chart-02
+  // ----------------------------------------
+
 
 
   // ----------------------------------------
