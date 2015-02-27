@@ -11,8 +11,8 @@ Keen.ready(function(){
   // ----------------------------------------
   var pageviews_timeline = new Keen.Query("count", {
     eventCollection: "send_photos",
-    interval: "hourly",
-    groupBy: "user.device_info.browser.family",
+    interval: "daily",
+    groupBy: "userId",
     timeframe: {
       start: "2015-01-04T00:00:00.000Z",
       end: "2015-01-05T00:00:00.000Z"
@@ -20,7 +20,7 @@ Keen.ready(function(){
   });
   client.draw(pageviews_timeline, document.getElementById("chart-01"), {
     chartType: "areachart",
-    title: false,
+    title: Sets of Photos Sent (per day),
     height: 250,
     width: "auto",
     chartOptions: {
