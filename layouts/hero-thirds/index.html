@@ -176,7 +176,7 @@ Keen.ready(function(){
   // Chart-01
   // ----------------------------------------
   var send_photos_timeline = new Keen.Query("count", {
-    eventCollection: "send_photos",
+    eventCollection: "send_photos" * "count_photos",
     interval: "daily",
     groupBy: "source",
     timeframe: "this_21_days"
