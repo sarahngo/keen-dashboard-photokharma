@@ -67,10 +67,10 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Total user accounts created
+            Funnel: users who finished onboarding 
           </div>
           <div class="chart-stage">
-            <div id="chart-00"></div> 
+            <div id="chart-03"></div> 
           </div>
           <div class="chart-notes">
             Notes about this chart
@@ -219,33 +219,47 @@ Keen.ready(function(){
 
 
   // ----------------------------------------
-  // Sample two
+  // chart-03
   // ----------------------------------------
-  var pageviews_static = new Keen.Query("count", {
-    eventCollection: "pageviews",
-    groupBy: "user.device_info.browser.family",
-    timeframe: {
-      start: "2014-05-01T00:00:00.000Z",
-      end: "2014-05-05T00:00:00.000Z"
-    }
-  });
-  client.draw(pageviews_static, document.getElementById("chart-02"), {
-    chartType: "piechart",
-    title: false,
-    height: 250,
-    width: "auto",
-    chartOptions: {
-      chartArea: {
-        height: "85%",
-        left: "5%",
-        top: "5%",
-        width: "100%"
-      },
-      pieHole: .4
-    }
-  });
+  var watch_activation_funnel = new Keen.Query("funnel", {
+  steps: [
+    {
+       event_collection: "button_fb_access", // how many signed up with Facebook?
+       actor_property: "userId",
+       timeframe: "last_21_days"
+    },
+    {
+      event_collection: "clustering_start", // how many started clustering?
+      actor_property: "userId",
+      optional: true
+    },
+    {
+      event_collection: "clustering_end", // how many finished clustering?
+      actor_property: "userId",
+      optional: true
+    },
+    {
+      event_collection: "send_photos",
+      actor_property: "userId",
+       optional: true
+    },
+  ]
+});
+
+client.draw(watch_activation_funnel, document.getElementById("chart-03"), {
+  library: "google",
+  chartType: "barchart", // or "columnchart"
+  height: 340,
+  title: null,
+  colors: ["#79CDCD"],
+  labelMapping: [ "Signed in with Facebook", "Started Clustering", "Finished Clustering", "Sent photos" ],
+  chartOptions: {
+    chartArea: { height: "85%", left: "20%", top: "5%" },
+    legend: { position: "none" }
+  }
+});
   // ----------------------------------------
-  // End sample two
+  // End chart-03
   // ----------------------------------------
 
   // ----------------------------------------
